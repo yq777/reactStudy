@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>react学习</title>
+    <script src="./package/browser.min.js"></script>
+    <script src="./package/react.js"></script>
+    <script src="./package/react-dom.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      let app = document.getElementById('app');
+      let span = <span>Hello World!</span>;
+      console.log(span);
+      ReactDOM.render(span, app);
+    </script>
+  </body>
+</html>
