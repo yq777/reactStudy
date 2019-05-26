@@ -6,14 +6,87 @@
     <script src="./package/browser.min.js"></script>
     <script src="./package/react.js"></script>
     <script src="./package/react-dom.js"></script>
+    <script src="./index.js"></script>
+    <script src="./data.js"></script>
   </head>
   <body>
     <div id="app"></div>
     <script type="text/babel">
       let app = document.getElementById('app');
-      let span = <span>Hello World!</span>;
-      console.log(span);
-      ReactDOM.render(span, app);
+      const CATEGORY = {
+        index: '首页',
+        guonei: '国内',
+        war: '战争',
+        guoji: '国际'
+      };
+      class Table extends React.Component {
+        constructor(props) {
+          super(props);
+          this.getTime = this.getTime.bind(this);
+          this.converDate = this.converDate.bind(this);
+        }
+        componentDidMount() {}
+        converDate(time) {
+          if (time && time < 10) {
+            return '0' + time;
+          }
+          return time;
+        }
+        getTime(time) {
+          if (time) {
+            let date = new Date(time);
+            return `${date.getFullYear()}-${this.converDate(
+              date.getMonth() + 1
+            )}-${this.converDate(
+              date.getDate()
+            )} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+          }
+        }
+        render() {
+          let getNews = news.RECORDS;
+
+          return (
+            <table
+              style={{
+                border: '1px solid #ccc',
+                borderCollapse: 'collapse'
+              }}
+              cellSpacing="0"
+              cellPadding="10px"
+            >
+              <thead />
+              <tbody align="center">
+                {getNews.map(item => (
+                  <tr key={item.ID}>
+                    <td
+                      style={{
+                        border: '1px solid #ccc'
+                      }}
+                    >
+                      {item.title}
+                    </td>
+                    <td
+                      style={{
+                        border: '1px solid #ccc'
+                      }}
+                    >
+                      {CATEGORY[item.channel]}
+                    </td>
+                    <td
+                      style={{
+                        border: '1px solid #ccc'
+                      }}
+                    >
+                      {this.getTime(item.time)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          );
+        }
+      }
+      ReactDOM.render(<Table />, app);
     </script>
   </body>
 </html>
